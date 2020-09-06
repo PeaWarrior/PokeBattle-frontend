@@ -11,6 +11,7 @@ export default function PokemonCard(props) {
            <Card.Body>
                 <Card.Title>{nickname}</Card.Title>
                 <Card.Text>
+                    {pokemon.types}
                     {pokemon.species}
                     {pokemon.id}
                 </Card.Text>
