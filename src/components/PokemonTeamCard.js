@@ -2,41 +2,41 @@ import React, { useState, useEffect } from 'react';
 import useFormatPokemonId from '../utility/useFormatPokemonId';
 import { Container, Card, Row, Col, ListGroup } from 'react-bootstrap';
 import PokemonStats from './pokemon/PokemonStats';
-import PokemonImage from './pokemon/PokemonImage'
+import PokemonImage from './pokemon/PokemonImage';
+import PokemonMove from './pokemon/PokemonMove';
+import PokemonTypes from './pokemon/PokemonTypes';
 
 export default function PokemonTeamCard(props) {
     const { nickname, shiny, moves, pokemon} = props
-    // const pokemonId = useFormatPokemonId(pokemon.id)
+    console.log(moves.types)
 
-    console.log(props)
+    const renderMoves = () => {
+        return moves.map(move => <PokemonMove {...move} />)
+    }
+
 
     return (
-        <Container className="mb-3 pokemonCard" >
+        <Container className="pokemonCard">
             <Row>
-                <Col md="2" className="p-0">
-                <PokemonImage shiny={shiny} {...pokemon.sprites}/>
+                <Col md={4} className="p-0">
+                    {/* <img src={pokemon.sprites.front} alt={pokemon.species} /> */}
+                    <PokemonImage shiny={shiny} {...pokemon.sprites} />
+                    <PokemonTypes {...pokemon.types} />
                 </Col>
-                <Col md="6" className="p-0">
-                    <Card.Body className="pl-0 pt-0 pb-0">
-                        <PokemonStats {...pokemon.stats} />
-                    </Card.Body>
-                </Col>
-                <Col>
-                    <ListGroup>
-                        <div className="pokemonMove"></div>
-                        <div className="pokemonMove"> </div>
-                        <div className="pokemonMove">Growl</div>
-                        <div className="pokemonMove">Tackle</div>
-                    </ListGroup>
+                <Col className="p-0">
+                    <h5 className="pokemonNickname">{nickname ? nickname : pokemon.species}</h5>
+                    <hr className="divider"/>
+                    <PokemonStats {...pokemon.stats} />
                 </Col>
             </Row>
-
-            <Row>
-                <Col>
-                    <Card.Header>{nickname || pokemon.species}</Card.Header>
-                </Col>
-
+            <hr className="divider"/>
+            <Row className="d-flex flex-wrap justify-content-around">
+                {renderMoves()}
             </Row>
-       </Container>
+        </Container>
     )
+}
+
+PokemonTeamCard.defaultProps = {
+    moves: []
 }

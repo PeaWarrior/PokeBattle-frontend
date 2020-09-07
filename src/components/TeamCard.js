@@ -35,13 +35,13 @@ export default function TeamCard(team) {
     }
 
     return (
-        <Container className="mt-3">
+        <Container className="mt-3 pokemonCard">
             <Row>
                 <Col md={10}>
                     <h1>{name}</h1>
                 </Col>
                 <Col md={2}>
-                    <Button onClick={handleEditClick}>Edit team</Button>
+                    
                 </Col>
             </Row>
             <Row>
@@ -50,6 +50,7 @@ export default function TeamCard(team) {
                 <br/>
                 <Badge>Wins: {wins}</Badge>
                 <Badge>Losses: {losses}</Badge>
+                <button onClick={handleEditClick}>Edit team</button>
                 <hr/>
             </Row>
             <Row>

@@ -2,6 +2,7 @@ import React from 'react';
 import useFormatPokemonId from '../utility/useFormatPokemonId';
 import { useHistory, useLocation } from 'react-router-dom';
 import AddPokemonForm from './AddPokemonForm';
+import { Row } from 'react-bootstrap';
 
 export default function PokemonCard(pokemon) {
     const history = useHistory();
@@ -49,15 +50,20 @@ export default function PokemonCard(pokemon) {
 
     return (
         <div className='pokemonCard'>
-            <img src={sprites.front} alt={species} />
+            <Row>
+                <img src={sprites.front} alt={species} />
+            </Row>
+            <Row>
+
+            </Row>
             <small>{useFormatPokemonId(id)}</small>
             <h1>{species}</h1>
             {renderTypes()}
             <AddPokemonForm team_id={team_id} {...pokemon}/>
-            <button onClick={handleClickAddPokemonToTeam}>Add to Team</button>
-            <button onClick={handleClick}>View</button>
+            {/* <button onClick={handleClickAddPokemonToTeam}>Add to Team</button>
+            <button onClick={handleClick}>View</button> */}
             <ul>
-                {renderMoves}
+                {/* {renderMoves} */}
             </ul>
         </div>
     )

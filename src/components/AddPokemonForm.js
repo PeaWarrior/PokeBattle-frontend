@@ -51,7 +51,7 @@ export default function AddPokemonForm(props) {
           </Modal.Header>
           <Modal.Body>
               <PokemonTeamCard shiny={false} pokemon={props} />
-              <form>
+              <form onSubmit={handleClickAddPokemonToTeam}>
                   <label>
                       Enter a nickname
                       <br/>
@@ -61,7 +61,7 @@ export default function AddPokemonForm(props) {
                     <Button variant="secondary" onClick={handleClose}>
                     Close
                     </Button>
-                    <Button variant="primary" onClick={handleClickAddPokemonToTeam}>
+                    <Button variant="primary">
                         Add Pokemon
                     </Button>
                 </Modal.Footer>
