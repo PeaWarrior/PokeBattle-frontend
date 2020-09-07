@@ -1,42 +1,87 @@
-import React, { useState, useEffect } from 'react';
-import PokemonCard from './PokemonCard'
-import { Container, Button, Badge } from 'react-bootstrap';
+import React from 'react';
+import PokemonTeamCard from './PokemonTeamCard';
+import { Container, Badge, Row, Col, Button } from 'react-bootstrap';
+import { useLocation, useHistory } from 'react-router-dom';
 
-export default function Team(team) {
-    const { name, matches, wins, losses, team_pokemons } = team
-    // const [name, setName] = useState(team.name);
-    // const [matches, setMatches] = useState(team.matches);
-    // const [wins, setWins] = useState(team.wins);
-    // const [losses, setLosses] = useState(team.losses);
-    // const [teamPokemons, setTeamPokemons] = useState(team.team_pokemons);
-    console.log(team_pokemons)
+const URL = 'http://localhost:3001/'
 
-    // useEffect(() => {
-    //     if (team) {
-    //         setName(team.name);
-    //         setMatches(team.matches);
-    //         setWins(team.wins);
-    //         setLosses(team.losses);
-    //         setTeamPokemons(team.team_pokemons);
-    //     }
-    // }, [team])
+export default function Team() {
+    const location = useLocation();
+    const history = useHistory();
+    const { id, name, matches, wins, losses, team_pokemons } = location.state
 
-    function renderTeamPokemons() {
-        if (team_pokemons) {
-            return team_pokemons.map(teamPokemon => {
-                const { nickname, shiny, pokemon } = teamPokemon
-                return (
-                    <PokemonCard key={teamPokemon.id} {...teamPokemon} />
-                )
-            })
+    const handleClickAddPokemonToTeam = (event) => {
+        history.push({
+            pathname: '/pokedex',
+            state: {
+                team_id: id,
+            }
+        })
+    }
+
+    const renderAddPokemonButton = () => {
+        if (team_pokemons.length < 3) {
+            return <button onClick={handleClickAddPokemonToTeam}>Add Pokemon</button>
         }
     }
+
+    const renderTeamPokemons = () => {
+        if (team_pokemons) {
+            return team_pokemons.map(teamPokemon => (
+                <Row>
+                    <PokemonTeamCard key={teamPokemon.id} {...teamPokemon} />
+                </Row>
+            ))
+        }
+    };
+
+    const handleClick = (event) => {
+        const confirmation = window.confirm('You sure you want to delete this team?');
+        if (confirmation) {
+            deleteTeam();
+        } else {
+            return
+        }
+    };
+
+    const deleteTeam = () => {
+        fetch(`${URL}teams/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${localStorage.token}`
+            }
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            history.push('/teams')
+        })
+    }
+
     return (
         <Container>
-            <h1>{name}</h1>
-            <Button>Wins: <Badge>{wins}</Badge></Button>
-            <Button>Losses: <Badge>{losses}</Badge></Button>
-            <Button>Matches: <Badge>{matches}</Badge></Button>
+            <Row>
+                <Col md="10">
+                    <h1>{name}</h1>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <Badge>Total Matches: {matches}</Badge>
+                    <Badge>Winrate: { matches ? `${wins/matches}%` : 'N/A' }</Badge>
+                    <br/>
+                    <Badge>Wins: {wins}</Badge>
+                    <Badge>Losses: {losses}</Badge>
+                </Col>
+                <Col md="2" className="text-right">
+                    <Button
+                        onClick={handleClick}
+                        variant="danger">
+                        Delete Team
+                    </Button>
+                </Col>
+            </Row>
+            <hr/>
+            {renderAddPokemonButton()}
             {renderTeamPokemons()}
         </Container>
     )
