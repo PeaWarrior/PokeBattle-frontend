@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import PokemonCard from './PokemonCard'
 
-export default function Pokedex(props) {
-    const [pokemons, setPokemons] = useState([])
+export default function Pokedex() {
+    const [pokemons, setPokemons] = useState([]);
 
     useEffect(() => {
         fetchPokemons();
@@ -17,7 +17,7 @@ export default function Pokedex(props) {
 
     const renderPokemonCards = () => {
         return pokemons.map(pokemon => 
-            <Col md={2}>
+            <Col key={pokemon.id} md={2}>
                 <PokemonCard 
                     key={pokemon.id} 
                     {...pokemon}

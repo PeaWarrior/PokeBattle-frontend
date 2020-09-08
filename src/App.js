@@ -7,7 +7,6 @@ import Login from './components/Login';
 import Signup from './components/Signup';
 import Pokedex from './components/Pokedex';
 import TeamListings from './components/TeamListings';
-import Team from './components/Team';
 import AddPokemonForm from './components/AddPokemonForm'
 import './App.css';
 
@@ -67,10 +66,6 @@ function App() {
                 
               <Route exact path="/signup"> 
                 {!!currentUser ? <Redirect to="/" /> : <Signup handleLogin={handleLogin} currentUser={currentUser} />}
-              </Route>
-
-              <Route exact path="/team">
-                <Team />
               </Route>
 
             </Switch>

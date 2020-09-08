@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
-import useFormatPokemonId from '../utility/useFormatPokemonId';
-import PokemonStats from './pokemon/PokemonStats';
+import { useHistory } from 'react-router-dom';
 import PokemonTeamCard from './PokemonTeamCard';
 import { Button, Modal } from 'react-bootstrap';
 
 export default function AddPokemonForm(props) {
     const history = useHistory();
-    const { team_id, id, species, sprites, types, stats } = props
+    const { team_id, team_name, id, species } = props
     const [show, setShow] = useState(false);
-    const [nickname, setNickname] = useState(species)
+    const [nickname, setNickname] = useState(species);
   
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -47,11 +45,11 @@ export default function AddPokemonForm(props) {
   
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Add {species} to your team?</Modal.Title>
+            <Modal.Title>Add {species} to {team_name}?</Modal.Title>
           </Modal.Header>
           <Modal.Body>
               <PokemonTeamCard shiny={false} pokemon={props} />
-              <form onSubmit={handleClickAddPokemonToTeam}>
+              <form>
                   <label>
                       Enter a nickname
                       <br/>
@@ -61,7 +59,7 @@ export default function AddPokemonForm(props) {
                     <Button variant="secondary" onClick={handleClose}>
                     Close
                     </Button>
-                    <Button variant="primary">
+                    <Button onClick={handleClickAddPokemonToTeam} variant="primary">
                         Add Pokemon
                     </Button>
                 </Modal.Footer>

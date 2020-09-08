@@ -6,7 +6,7 @@ const URL = 'http://localhost:3001/'
 
 export default function TeamListings() {
     const [teams, setTeams] = useState([]);
-    const [newTeamName, setNewTeamName] = useState('')
+    const [newTeamName, setNewTeamName] = useState('');
 
     useEffect(() => {
         fetchTeams();
@@ -34,14 +34,37 @@ export default function TeamListings() {
             body: JSON.stringify({name: newTeamName})
         })
         .then(resp => resp.json())
-        .then(newTeam => {
-            setTeams([...teams, newTeam])
-            setNewTeamName('')
-            })
+        .then(data => {
+            if (data.error) {
+                console.log("ADD ERROR MESSAGES CREATENEWTEAM TEAMLISTINGS")
+            } else {
+                setTeams([...teams, data])
+                setNewTeamName('')
+            }
+        });
+    };
+
+    const handleDeleteTeam = (id) => {
+        fetch(`${URL}teams/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${localStorage.token}`
+            }
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            setTeams(data)
+        });
     };
 
     const renderTeamCards = () => {
-        return teams.map(team => <TeamCard key={team.name} {...team} />);
+        return teams.map(team => (
+            <TeamCard 
+                key={team.id} 
+                handleDeleteTeam={handleDeleteTeam} 
+                {...team} 
+            />
+        ));
     };
 
     const handleSubmit = (event) => {
