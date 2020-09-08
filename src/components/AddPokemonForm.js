@@ -16,7 +16,8 @@ export default function AddPokemonForm(props) {
         setNickname(event.target.value)
     }
 
-    const handleClickAddPokemonToTeam = (event) => {
+    const handleSubmitAddPokemonToTeam = (event) => {
+      event.preventDefault();
         fetch('http://localhost:3001/addpokemon', {
             method: 'POST',
             headers: {
@@ -49,7 +50,7 @@ export default function AddPokemonForm(props) {
           </Modal.Header>
           <Modal.Body>
               <PokemonTeamCard shiny={false} pokemon={props} />
-              <form>
+              <form onSubmit={handleSubmitAddPokemonToTeam}>
                   <label>
                       Enter a nickname
                       <br/>
@@ -59,7 +60,7 @@ export default function AddPokemonForm(props) {
                     <Button variant="secondary" onClick={handleClose}>
                     Close
                     </Button>
-                    <Button onClick={handleClickAddPokemonToTeam} variant="primary">
+                    <Button variant="primary" type="submit">
                         Add Pokemon
                     </Button>
                 </Modal.Footer>

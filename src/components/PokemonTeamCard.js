@@ -15,7 +15,6 @@ export default function PokemonTeamCard(props) {
         return moves.map(move => <PokemonMove key={move.name} {...move} />);
     };
     
-    
     const handleClickShowOptions = (event) => {
         setShowOptions(!showOptions);
     };

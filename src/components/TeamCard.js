@@ -61,7 +61,7 @@ export default function TeamCard(team) {
         })
         .then(resp => resp.json())
         .then(data => {
-            setTeamPokemons(data.team.team_pokemons)
+            setTeamPokemons(data.team.team_pokemons);
         })
     }
 
@@ -89,10 +89,12 @@ export default function TeamCard(team) {
                     </Button>
                     {renderAddPokemonButton()}
                 </Col>
-                <hr/>
             </Row>
+            <br/>
             <Row>
-                {renderTeamPokemons()}
+                <Col>
+                    {teamPokemons.length > 0 ? renderTeamPokemons() : <p>There are no pokemon in this team.</p>}
+                </Col>
             </Row>
         </Container>
     )

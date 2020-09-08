@@ -24,6 +24,7 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     setCurrentUser(null);
+
   };
 
   useEffect(() => {
@@ -42,8 +43,6 @@ function App() {
       })
     }
   }, [])
-
-  
 
   return (
     <Router>

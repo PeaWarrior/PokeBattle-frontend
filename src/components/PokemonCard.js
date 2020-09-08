@@ -12,12 +12,10 @@ export default function PokemonCard(pokemon) {
 
     return (
         <div className='pokemonCard'>
-            <Row>
-                <img src={sprites.front} alt={species} />
-            </Row>
-            
+            <img src={sprites.front} alt={species} />
             <small>{useFormatPokemonId(id)}</small>
-            <h6>{species}</h6>
+            <h6 className="text-capitalize">{species}</h6>
+            
             <PokemonTypes {...types} />
             <br/>
             <AddPokemonForm team_id={team_id} team_name={team_name} {...pokemon}/>

@@ -7,7 +7,7 @@ export default function NavigationBar (props) {
     const renderAuthenticationOptions = () => {
         if (props.currentUser) {
             return (
-                <Button className="mr-4" onClick={props.handleLogout} >Log Out</Button>
+                <NavLink className="btn btn-primary mr-4" onClick={props.handleLogout} to="/" >Log Out</NavLink>
             )
         } else {
             return (
@@ -23,13 +23,21 @@ export default function NavigationBar (props) {
     return (
         <Navbar bg="dark" variant="dark">
             <Navbar.Brand className="ml-5">Pokebattle</Navbar.Brand>
-            <Nav className="mr-auto">
-                <NavLink className="ml-5" to="/">Home</NavLink>
-                <NavLink className="ml-5" to="/teams">My Teams</NavLink>
-            </Nav>
-            <Nav>
-                {renderAuthenticationOptions()}
-            </Nav>
+            {props.currentUser ? 
+                <>
+                <Nav className="mr-auto">
+                    <NavLink className="ml-5" to="/">Home</NavLink>
+                    <NavLink className="ml-5" to="/teams">My Teams</NavLink>
+                </Nav>
+                <NavLink className="btn btn-primary mr-4" onClick={props.handleLogout} to="/" >Log Out</NavLink>
+                </>
+            :
+                <Nav>
+                    <NavLink className="mr-4" to="/login"><Button>Login</Button></NavLink>
+                    <NavLink className="mr-5" to="/signup"><Button>Signup</Button></NavLink>
+                </Nav>
+            }
+            
         </Navbar>
     )
 }
