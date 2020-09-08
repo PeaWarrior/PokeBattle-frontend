@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import TeamCard from './TeamCard';
-import { Container, Row, Button, InputGroup, Form, FormControl } from 'react-bootstrap';
+import NewTeamForm from './NewTeamForm'
+import { Container, Row, Button, InputGroup, Form, FormControl, Col } from 'react-bootstrap';
 
 const URL = 'http://localhost:3001/'
 
 export default function TeamListings() {
     const [teams, setTeams] = useState([]);
-    const [newTeamName, setNewTeamName] = useState('');
+    const [errors, setErrors] = useState('');
 
     useEffect(() => {
         fetchTeams();
@@ -24,7 +25,7 @@ export default function TeamListings() {
         });
     };
 
-    const createNewTeam = () => {
+    const createNewTeam = (newTeamName) => {
         fetch(`${URL}teams`, {
             method: 'POST',
             headers: {
@@ -36,10 +37,9 @@ export default function TeamListings() {
         .then(resp => resp.json())
         .then(data => {
             if (data.error) {
-                console.log("ADD ERROR MESSAGES CREATENEWTEAM TEAMLISTINGS")
+                setErrors(...data.error)
             } else {
                 setTeams([...teams, data])
-                setNewTeamName('')
             }
         });
     };
@@ -67,32 +67,12 @@ export default function TeamListings() {
         ));
     };
 
-    const handleSubmit = (event) => {
-        event.persist();
-        event.preventDefault();
-        createNewTeam();
-        
-    };
-
-    const handleChange = (event) => {
-        setNewTeamName(event.target.value);
-    }
-
     return (
         <Container className="mt-3">
             <Row>
-                <Form onSubmit={handleSubmit}>
-                    <InputGroup className="mb-3">
-                        <FormControl onChange={handleChange} value={newTeamName}
-                            placeholder="New team name"
-                            aria-label="New team name"
-                        />
-                        <InputGroup.Append>
-                            <Button variant="outline-secondary" type="submit">Create New team</Button>
-                        </InputGroup.Append>
-                    </InputGroup>
-                </Form>
-
+                <Col>
+                    <NewTeamForm createNewTeam={createNewTeam} errors={errors} />
+                </Col>
             </Row>
             <Row>
                 {renderTeamCards()}

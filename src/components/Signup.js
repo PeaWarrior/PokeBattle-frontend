@@ -1,40 +1,42 @@
 import React, { useState } from 'react';
-import { Container, Col, Row } from 'react-bootstrap'
+import { Container, Button } from 'react-bootstrap'
 
 export default function Signup(props) {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const [formData, setFormData] = useState({
+        username: '',
+        password: '',
+        password_confirmation: '',
+    });
+
+    const [errors, setErrors] = useState({
+        usernameError: '',
+        passwordError: '',
+        passwordConfirmationError: '',
+    })
 
     const handleChange = (event) => {
-        switch (event.target.name) {
-            case 'username':
-                setUsername(event.target.value)
-                break;
-            case 'password':
-                setPassword(event.target.value)
-                break;
-            case 'confirmPassword':
-                setConfirmPassword(event.target.value)
-                break;
-            default:
-                break;
-        }
+        console.log(event.target.name)
+        setFormData({
+            ...formData,
+            [event.target.name]: event.target.value
+        })
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        setErrors({
+            usernameError: '',
+            passwordError: '',
+            passwordConfirmationError: ''
+        })
         fetchSignup();
     }
 
     const fetchSignup = () => {
         const credentials = {
-            user: {
-                username: username,
-                password: password,
-                password_confirmation: confirmPassword
-            }
+            user: formData
         }
+        console.log(credentials)
         fetch('http://localhost:3001/users', {
             method: 'POST',
             headers: {
@@ -49,26 +51,64 @@ export default function Signup(props) {
                 props.handleLogin(user)
                 localStorage.token = token
             } else {
-                console.log(data.error)
+                data.error.forEach(error => {
+                    if (error.includes('Username')) {
+                        setErrors({...errors, usernameError: error});
+                    } else if (error.includes('confirmation')) {
+                        setErrors({...errors, passwordConfirmationError: error});
+                    } else {
+                        setErrors({...errors, passwordError: error});
+                    }
+                });
             }
         })
     }
 
     return (
-        <Container>
-            <Row>
-            <Col md={8}>
-                <form onSubmit={handleSubmit}>
-                    <label name="username">New Username</label>
-                    <input type="text" name="username" onChange={handleChange} value={username} />
-                    <label name="password">Password</label>
-                    <input type="password" name="password" autoComplete="off" onChange={handleChange} value={password} />
-                    <label name="password">Confirm Password</label>
-                    <input type="password" name="confirmPassword" autoComplete="off" onChange={handleChange} value={confirmPassword} />
-                    <button>Create Account</button>
-                </form>
-            </Col>
-            </Row>
+        <Container className="form d-flex justify-content-center">
+            <div>
+                <div className="formDiv pt-5">
+                    <h5 className="text-center">Sign Up</h5>
+                    <hr className="divider pb-5 mt-2" />
+                    <br/>
+                    <form onSubmit={handleSubmit} className="d-flex flex-column">
+                        <label name="username">
+                        </label>
+                        <input type="text" name="username" placeholder="Username" onChange={handleChange} value={formData.username} />
+                        {errors.usernameError ? 
+                            <span className="error">{errors.usernameError}</span>
+                            : 
+                            <br/>
+                        }
+                        
+                        <label name="password">
+                        </label>
+                        <input type="password" name="password" placeholder="Password" autoComplete="off" onChange={handleChange} value={formData.password} />
+                        {errors.passwordError ? 
+                            <span className="error">{errors.passwordError}</span>
+                            : 
+                            <br/>
+                        }
+
+                        <label name="password">
+                        </label>
+                        <input type="password" name="password_confirmation" autoComplete="off" placeholder="Confirm password" onChange={handleChange} value={formData.confirmPassword} />
+                        {errors.passwordConfirmationError ? 
+                            <span className="error">{errors.passwordConfirmationError}</span>
+                            : 
+                            <br/>
+                        }
+
+                        <div className="d-flex justify-content-center">
+                            <Button className="auth-btn" type="submit" variant="outline-info">Sign Up</Button>
+                            <br/>
+                        </div>
+                        <br/>
+                    </form>
+                </div>
+            </div>
+
+
         </Container>
     )
 }

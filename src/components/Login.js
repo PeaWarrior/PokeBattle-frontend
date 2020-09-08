@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Container, Col, Row } from 'react-bootstrap';
+import { Container, Button } from 'react-bootstrap';
 
 
 export default function Login(props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
     const handleChange = (event) => {
         switch (event.target.name) {
@@ -45,24 +46,41 @@ export default function Login(props) {
                 props.handleLogin(user)
                 localStorage.token = token
             } else {
-                console.log(data.error)
+                setError(data.error);
+                setUsername("");
+                setPassword("");
             }
         })
     }
 
     return (
-        <Container>
-            <Row>
-            <Col md={8}>
-                <form onSubmit={handleSubmit}>
-                    <label name="username">Username</label>
-                    <input type="text" name="username" onChange={handleChange} value={username} />
-                    <label name="password">Password</label>
-                    <input type="password" name="password" autoComplete="off" onChange={handleChange} value={password} />
-                    <button>Login</button>
-                </form>
-            </Col>
-            </Row>
+        <Container className="d-flex justify-content-center backgroundFormDiv">
+            <div className="d-flex justify-content-center">
+                <br/>
+                <div className="formDiv pt-5">
+                    <h5 className="text-center">Log In</h5>
+                    <hr className="pb-5 mt-2" />
+                    
+                    <form onSubmit={handleSubmit} className="d-flex flex-column justify-content-center mt-5">
+                        <label name="username">
+                        </label>
+                            <input type="text" name="username" placeholder="Username" onChange={handleChange} value={username} />
+                        <label className="mb-5" name="password">
+                        </label>
+                        <input type="password" name="password" placeholder="Password" autoComplete="off" onChange={handleChange} value={password} />
+                        <br/>
+                        <div className="d-flex justify-content-center mb-5">
+                            <Button className="auth-btn" variant="outline-info" type="submit">Log In</Button>
+
+                        <br/>
+                        </div>
+                        <br/>
+                        <span className="error">{error}</span>
+                    </form>
+                </div>
+            </div>
+
         </Container>
     )
 }
+

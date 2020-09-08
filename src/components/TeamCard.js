@@ -66,7 +66,7 @@ export default function TeamCard(team) {
     }
 
     return (
-        <Container className="mt-3 pokemonCard">
+        <Container className="mt-3 teamCard">
             <Row>
                 <Col md={12}>
                     <h1>{name}</h1>
@@ -93,7 +93,10 @@ export default function TeamCard(team) {
             <br/>
             <Row>
                 <Col>
+                <Row>
+
                     {teamPokemons.length > 0 ? renderTeamPokemons() : <p>There are no pokemon in this team.</p>}
+                </Row>
                 </Col>
             </Row>
         </Container>
