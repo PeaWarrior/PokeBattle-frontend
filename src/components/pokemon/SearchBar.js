@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Form, InputGroup, FormControl, Button } from 'react-bootstrap';
+import React from 'react';
+import { Form, InputGroup, FormControl } from 'react-bootstrap';
 
 export default function SearchBar(props) {
     const { handleChangeSearch, search } = props

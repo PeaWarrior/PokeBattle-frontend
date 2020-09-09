@@ -5,20 +5,10 @@
 .auth-btn {
   padding: 5px 10px;
   border-radius: 0.5rem !important;
-  /* width: 150px!important; */
 }
 
 img {
   width: 100%;
-}
-
-.backgroundFormDiv {
-  /* background-image: url('https://media-s3-us-east-1.ceros.com/hype-beast/images/2018/07/13/3510cdb9cf222cd0cec19fdfea4bddbb/pokedex.png?imageOpt=1&fit=bounds&width=1047');
-  background-position: 10px 100px;
-  background-size: 45rem;
-  background-repeat: no-repeat; */
-  width: 400px;
-  height: 50vh;
 }
 
 .formDiv {
@@ -26,7 +16,7 @@ img {
   margin-top: 25px;
   border-radius: 1rem;
   width: 450px;
-  background-image: url('https://lh3.googleusercontent.com/proxy/9iQM3xdV7Qc8EQHlAmowEFh8umQ3IUN-VQjx9bVb2HAADeKXw4-P4jE2qMeUPHDYYMB1kUGTOHNqyfww3aRe34WwbzHjMlkrOXG1VTfC4qjwZLDym7NZ_3uFt7D6DUWtNk-B');
+  background-image: url('https://pngimg.com/uploads/pokeball/pokeball_PNG8.png');
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center;
@@ -40,12 +30,22 @@ input {
   width: auto;
   text-align: center;
   padding: 5px;
+  margin-right: 5px;
+}
+
+select {
+  border: 1px solid teal;
+  border-radius: 0.25rem;
+  width: 250px;
+  height: 36px;
+  padding: 5px;
 }
 
 .error {
   color: red;
   background: pink;
   border-radius: 5px;
+  text-align: center;
 }
 
 .i {
@@ -62,21 +62,31 @@ input {
   cursor: pointer;
 }
 
-.teamCard {
-  border: 1px solid rgb(161, 161, 161);
-  border-radius: 10px;
-  padding: 15px;
+.battleListing {
+  min-height: 89vh;
+  margin-top: 25px;
 }
 
-.pokemonCard {
+.userCard {
+  border: 1px solid rgb(161, 161, 161);
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.regCard {
   border: 1px solid rgb(161, 161, 161);
   border-radius: 10px;
   padding: 15px;
-  background-image: url('https://lh3.googleusercontent.com/proxy/9iQM3xdV7Qc8EQHlAmowEFh8umQ3IUN-VQjx9bVb2HAADeKXw4-P4jE2qMeUPHDYYMB1kUGTOHNqyfww3aRe34WwbzHjMlkrOXG1VTfC4qjwZLDym7NZ_3uFt7D6DUWtNk-B');
+  margin-bottom: 10px;
+}
+
+.pokemon {
+  background-image: url('https://pngimg.com/uploads/pokeball/pokeball_PNG8.png');
   background-repeat: no-repeat;
   background-position: 10px 10px ;
   background-size: 2rem;
-  
 }
 
 .pokemonMove {

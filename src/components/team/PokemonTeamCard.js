@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import PokemonStats from './pokemon/PokemonStats';
-import PokemonImage from './pokemon/PokemonImage';
-import PokemonMove from './pokemon/PokemonMove';
-import PokemonTypes from './pokemon/PokemonTypes';
-
-const URL = 'http://localhost:3001/'
+import PokemonStats from '../pokemon/PokemonStats';
+import PokemonImage from '../pokemon/PokemonImage';
+import PokemonMove from '../pokemon/PokemonMove';
+import PokemonTypes from '../pokemon/PokemonTypes';
 
 export default function PokemonTeamCard(props) {
-    const { id, nickname, shiny, moves, pokemon, handleReleasePokemon } = props;
+    const { id, nickname, shiny, moves, pokemon, battleTeamCard, handleReleasePokemon } = props;
     const [showOptions, setShowOptions] = useState(false);
 
     const renderMoves = () => {
@@ -33,7 +31,7 @@ export default function PokemonTeamCard(props) {
     }
 
     return (
-        <Container className="pokemonCard">
+        <Container className="regCard pokemon">
                 
                 <Row>
                     <Col md={4} className="pr-0">
@@ -43,7 +41,7 @@ export default function PokemonTeamCard(props) {
                     <Col md={8} className="pl-0">
                         <div className="d-flex justify-content-between">
                             <h5 className="pokemonNickname">{nickname ? nickname : pokemon.species}</h5>
-                            {nickname ? renderOptionsClose() : null }
+                            {battleTeamCard || !nickname ? null : renderOptionsClose() }
                         </div>
                         <hr className="divider"/>
                         {showOptions ? 

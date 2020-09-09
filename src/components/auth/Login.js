@@ -59,7 +59,7 @@ export default function Login(props) {
                 <br/>
                 <div className="formDiv pt-5">
                     <h5 className="text-center">Log In</h5>
-                    <hr className="pb-5 mt-2" />
+                    <hr className="pb-3" />
                     
                     <form onSubmit={handleSubmit} className="d-flex flex-column justify-content-center mt-5">
                         <label name="username">
@@ -72,9 +72,7 @@ export default function Login(props) {
                         <div className="d-flex justify-content-center mb-5">
                             <Button className="auth-btn" variant="outline-info" type="submit">Log In</Button>
 
-                        <br/>
                         </div>
-                        <br/>
                         <span className="error">{error}</span>
                     </form>
                 </div>

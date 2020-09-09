@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import PokemonTeamCard from './PokemonTeamCard';
+import PokemonTeamCard from './team/PokemonTeamCard';
 import { Button, Modal } from 'react-bootstrap';
 
 export default function AddPokemonForm(props) {

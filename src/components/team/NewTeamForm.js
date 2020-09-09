@@ -13,6 +13,7 @@ export default function NewTeamForm(prop) {
         event.persist();
         event.preventDefault();
         createNewTeam(newTeamName);
+        handleClose();
     };
 
     const handleChange = (event) => {

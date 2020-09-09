@@ -69,7 +69,7 @@ export default function Signup(props) {
             <div>
                 <div className="formDiv pt-5">
                     <h5 className="text-center">Sign Up</h5>
-                    <hr className="divider pb-5 mt-2" />
+                    <hr className="divider pb-3" />
                     <br/>
                     <form onSubmit={handleSubmit} className="d-flex flex-column">
                         <label name="username">

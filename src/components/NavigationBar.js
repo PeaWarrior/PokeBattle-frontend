@@ -13,6 +13,7 @@ export default function NavigationBar (props) {
                 <Nav className="mr-auto">
                     <NavLink className="ml-5" to="/">Home</NavLink>
                     <NavLink className="ml-5" to="/teams">My Teams</NavLink>
+                    <NavLink className="ml-5" to="/playground">Playground</NavLink>
                 </Nav>
                 <NavLink className="btn btn-primary mr-4" onClick={props.handleLogout} to="/" >Log Out</NavLink>
                 </>

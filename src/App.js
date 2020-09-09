@@ -3,22 +3,21 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-d
 import { Container, Row, Col } from 'react-bootstrap';
 import NavigationBar from './components/NavigationBar';
 import Home from './components/Home';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import Pokedex from './components/Pokedex';
-import TeamListings from './components/TeamListings';
-import AddPokemonForm from './components/AddPokemonForm'
+import Login from './components/auth/Login';
+import Signup from './components/auth/Signup';
+import Pokedex from './components/pokemon/Pokedex';
+import TeamListings from './components/team/TeamListings';
+import Playground from './components/Playground';
+import Battle from './components/battle/Battle';
 import './App.css';
 
 const URL = 'http://localhost:3001/'
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  const [teams, setTeams] = useState(null);
 
   const handleLogin = userObj => {
     setCurrentUser(userObj);
-    setTeams(userObj.teams)
   };
 
   const handleLogout = () => {
@@ -54,11 +53,9 @@ function App() {
           <Col md={12}>
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route exact path="/pokedex"><Pokedex/></Route>
-              <Route exact path="/addpokemon"><AddPokemonForm teams={teams} /></Route>
-              <Route exact path="/teams">
-                <TeamListings />
-              </Route>
+              <Route exact path="/pokedex"><Pokedex /></Route>
+              <Route exact path="/teams"><TeamListings /></Route>
+              <Route exact path="/playground"><Playground {...currentUser} /></Route>
               <Route exact path="/login">
                 {!!currentUser ? <Redirect to="/" /> : <Login handleLogin={handleLogin} currentUser={currentUser} />}
               </Route> 
@@ -66,6 +63,7 @@ function App() {
               <Route exact path="/signup"> 
                 {!!currentUser ? <Redirect to="/" /> : <Signup handleLogin={handleLogin} currentUser={currentUser} />}
               </Route>
+              <Route exact path="/battle"><Battle {...currentUser} /></Route>
 
             </Switch>
           </Col>

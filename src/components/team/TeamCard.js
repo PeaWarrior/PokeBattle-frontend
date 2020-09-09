@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 const URL = 'http://localhost:3001/'
 
 export default function TeamCard(team) {
-    const { id, name, matches, wins, losses, team_pokemons, handleDeleteTeam } = team;
+    const { id, name, matches, wins, losses, battleTeamCard, team_pokemons, handleDeleteTeam } = team;
     const [teamPokemons, setTeamPokemons] = useState(team_pokemons);
     
     const history = useHistory();
@@ -21,9 +21,13 @@ export default function TeamCard(team) {
 
     const renderTeamPokemons = () => {
         if (teamPokemons) {
-            return teamPokemons.map(teamPokemon => (
+            return team_pokemons.map(teamPokemon => (
                 <Col md={4} className="p-1" key={teamPokemon.id}>
-                    <PokemonTeamCard handleReleasePokemon={handleReleasePokemon} {...teamPokemon} />
+                    <PokemonTeamCard 
+                    handleReleasePokemon={handleReleasePokemon}
+                    {...teamPokemon}
+                    battleTeamCard={battleTeamCard}
+                    />
                 </Col>
             ));
         };
@@ -66,7 +70,7 @@ export default function TeamCard(team) {
     }
 
     return (
-        <Container className="mt-3 teamCard">
+        <Container className="mt-3 regCard">
             <Row>
                 <Col md={12}>
                     <h1>{name}</h1>
@@ -82,12 +86,18 @@ export default function TeamCard(team) {
                 <Badge>Losses: {losses}</Badge>
                 </Col>
                 <Col xs={3} className="d-flex flex-row-reverse justify-content-between">
-                    <Button
-                        onClick={handleClickDeleteTeam}
-                        variant="danger">
-                        Delete Team
-                    </Button>
-                    {renderAddPokemonButton()}
+                    {battleTeamCard ? 
+                        null
+                        :
+                        <>
+                        <Button
+                            onClick={handleClickDeleteTeam}
+                            variant="danger">
+                            Delete Team
+                        </Button>
+                        {renderAddPokemonButton()}
+                        </>
+                    }
                 </Col>
             </Row>
             <br/>
@@ -95,7 +105,7 @@ export default function TeamCard(team) {
                 <Col>
                 <Row>
 
-                    {teamPokemons.length > 0 ? renderTeamPokemons() : <p>There are no pokemon in this team.</p>}
+                    {teamPokemons.length > 0 ? renderTeamPokemons() : <p className="pl-5">There are no pokemon in this team.</p>}
                 </Row>
                 </Col>
             </Row>

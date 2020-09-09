@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import TeamCard from './TeamCard';
 import NewTeamForm from './NewTeamForm'
-import { Container, Row, Button, InputGroup, Form, FormControl, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const URL = 'http://localhost:3001/'
 
@@ -75,7 +75,13 @@ export default function TeamListings() {
                 </Col>
             </Row>
             <Row>
-                {renderTeamCards()}
+                {teams.length ? 
+                    renderTeamCards()
+                    :
+                    <Container>
+                        <p className="pt-5">You currently have no teams.</p>
+                    </Container>
+                }
             </Row>
         </Container>
     )
