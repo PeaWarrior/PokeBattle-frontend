@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import BattleCard from './BattleCard';
 import NewBattleRoom from './NewBattleRoom'
 import { Container, Row, Col } from 'react-bootstrap';
@@ -7,23 +7,30 @@ import consumer from '../../Cable';
 const URL = 'http://localhost:3001/'
 
 export default function BattleListings(props) {
-    const { username } = props;
+    const { username, id: currentUserId } = props;
     const [battles, setBattles] = useState([]);
 
+    const ws = useRef(null);
+
     useEffect(() => {
-        const subscription = consumer.subscriptions.create({
+        ws.current = consumer.subscriptions.create({
             channel: "BattleListingsChannel",
-            username: username,
+            username: username
         },
         {
-            received: data => {
-                setBattles([...battles, data])
-            },
+            connected: () => console.log('CONNECTED!!'),
+            disconnected: () => console.log("DISCONNECTED FROM BATTLE"),
         })
         return () => {
-            subscription.unsubscribe();
+            ws.current.unsubscribe();
         }
-    }, [username, battles]);
+    }, [username])
+
+    useEffect(() => {
+        ws.current.received = (data) => {
+            setBattles([...battles, data])
+        }
+    }, [battles]);
 
     useEffect(() => {
         fetch(`${URL}battles`, {
@@ -40,9 +47,10 @@ export default function BattleListings(props) {
     }, [])
 
     const renderBattleCards = () => {
+        battles.sort((battle1, battle2) => battle1.status === 'open' ? -1 : 1)
         return battles.map(battle => (
             <Col md={6} className="mb-3" key={battle.id}>
-                <BattleCard {...battle} />
+                <BattleCard currentUserId={currentUserId} {...battle} />
             </Col>
         ))
     }
@@ -50,7 +58,7 @@ export default function BattleListings(props) {
     return (
         <Container className="battleListing regCard">
             <div className="mb-3">
-                <NewBattleRoom />
+                <NewBattleRoom toJoin={false} currentUserId={currentUserId} {...props} />
             </div>
             <hr/>
             <Row>

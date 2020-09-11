@@ -13,7 +13,7 @@ export default function TeamCard(team) {
 
     const getWinRate = () => {
         if (matches) {
-            return `${wins/matches}%`
+            return `${((wins/matches)*100).toFixed(2)}%`
         } else {
             return 'N/A'
         }

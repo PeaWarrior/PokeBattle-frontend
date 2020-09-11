@@ -11,7 +11,7 @@ export default function NavigationBar (props) {
             {props.currentUser ? 
                 <>
                 <Nav className="mr-auto">
-                    <NavLink className="ml-5" to="/">Home</NavLink>
+                    {/* <NavLink className="ml-5" to="/">Home</NavLink> */}
                     <NavLink className="ml-5" to="/teams">My Teams</NavLink>
                     <NavLink className="ml-5" to="/playground">Playground</NavLink>
                 </Nav>

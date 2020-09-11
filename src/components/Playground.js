@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import BattleListings from './battle/BattleListings';
 import OnlineUsersList from './user/OnlineUsersList';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -10,6 +10,8 @@ const URL = 'http://localhost:3001/';
 export default function Playground(props) {
     const { username } = props;
     const [onlineUsers, setOnlineUsers] = useState([]);
+
+    const ws = useRef(null);
 
     useEffect(() => {
         fetch(`${URL}users`, {
@@ -26,35 +28,39 @@ export default function Playground(props) {
             ]))
         })
     }, [])
-    
+
     useEffect(() => {
-        if (username) {
-            const subscription = consumer.subscriptions.create({
-                channel: "UserChannel",
-                username: username,
-            },
-            {
-                disconnected: () => setOnlineUsers([]),
-                received: data => {
-                    if (!data.active) {
-                        setOnlineUsers(onlineUsers => {
-                            const updatedOnlineUsers = onlineUsers.filter(onlineUser => onlineUser.username !== data.username);
-                            return (updatedOnlineUsers);
-                        });
-                    } else {
-                        setOnlineUsers(onlineUsers => ([
-                            ...onlineUsers,
-                            data
-                        ]))
-                    }
-                },
-            })
-            return () => {
-                subscription.unsubscribe();
+        ws.current = consumer.subscriptions.create({
+            channel: "UserChannel",
+            username: username
+        },
+        {
+            connected: () => console.log('CONNECTED!!'),
+            disconnected: () => console.log("DISCONNECTED FROM BATTLE"),
+        })
+        return () => {
+            ws.current.unsubscribe();
+        }
+    }, [username])
+
+    useEffect(() => {
+        ws.current.received = (data) => {
+            if (data.active) {
+                const loggedInUser = onlineUsers.find(onlineUser => onlineUser.id === data.id)
+                if (!loggedInUser) {
+                    setOnlineUsers(onlineUsers => ([
+                        ...onlineUsers,
+                        data
+                    ]))
+                }
+            } else {
+                const updatedOnlineUsers = onlineUsers.filter(onlineUser => (onlineUser.id !== data.id))
+
+                setOnlineUsers(onlineUsers => updatedOnlineUsers);
             }
         }
+    });
 
-    }, [username]);
 
     return (
         <Container className="card">
@@ -64,7 +70,7 @@ export default function Playground(props) {
                     <OnlineUsersList onlineUsers={onlineUsers} />
                 </Col>
                 <Col md={9} className="card">
-                    <BattleListings />
+                    <BattleListings {...props} />
                 </Col>
             </Row>
         </Container>

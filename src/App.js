@@ -52,7 +52,7 @@ function App() {
 
           <Col md={12}>
             <Switch>
-              <Route exact path="/" component={Home} />
+              <Route exact path="/"><Home {...currentUser} /> </Route>
               <Route exact path="/pokedex"><Pokedex /></Route>
               <Route exact path="/teams"><TeamListings /></Route>
               <Route exact path="/playground"><Playground {...currentUser} /></Route>

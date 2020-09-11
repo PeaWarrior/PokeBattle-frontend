@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Modal, Button, Badge } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 
 export default function PokemonMove(move) {
-    const { name, accuracy, types, power, priority, text, damage } = move;
+    const { name, types, power, text, damage } = move;
     const [show, setShow] = useState(false);
   
     const handleClose = () => setShow(false);
