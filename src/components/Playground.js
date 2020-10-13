@@ -23,7 +23,6 @@ export default function Playground(props) {
         .then(resp => resp.json())
         .then(data => {
             setOnlineUsers(onlineUsers => ([
-                ...onlineUsers,
                 ...data
             ]))
         })
@@ -56,7 +55,7 @@ export default function Playground(props) {
             } else {
                 const updatedOnlineUsers = onlineUsers.filter(onlineUser => (onlineUser.id !== data.id))
 
-                setOnlineUsers(onlineUsers => updatedOnlineUsers);
+                setOnlineUsers(updatedOnlineUsers);
             }
         }
     });

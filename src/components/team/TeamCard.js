@@ -32,7 +32,7 @@ export default function TeamCard(team) {
     };
 
     const renderAddPokemonButton = () => {
-        if (team_pokemons.length < 3) {
+        if (teamPokemons.length < 3) {
             return <Button onClick={handleClickAddPokemonToTeam}>Add Pokemon</Button>
         };
     };
@@ -63,7 +63,6 @@ export default function TeamCard(team) {
         })
         .then(resp => resp.json())
         .then(data => {
-            console.log(data.team.team_pokemons)
             setTeamPokemons(data.team.team_pokemons);
         })
     }

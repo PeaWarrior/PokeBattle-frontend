@@ -150,6 +150,10 @@ select {
   text-align: center;
 }
 
+.pokemonMove:hover {
+  cursor: pointer;
+}
+
 .pokemonNickname {
   margin: 0;
 }
