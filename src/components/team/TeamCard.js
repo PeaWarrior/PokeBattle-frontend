@@ -20,17 +20,15 @@ export default function TeamCard(team) {
     };
 
     const renderTeamPokemons = () => {
-        if (teamPokemons) {
-            return team_pokemons.map(teamPokemon => (
-                <Col md={4} className="p-1" key={teamPokemon.id}>
-                    <PokemonTeamCard 
-                    handleReleasePokemon={handleReleasePokemon}
-                    {...teamPokemon}
-                    battleTeamCard={battleTeamCard}
-                    />
-                </Col>
-            ));
-        };
+        return teamPokemons.map(teamPokemon => (
+            <Col md={4} className="p-1" key={teamPokemon.id}>
+                <PokemonTeamCard 
+                handleReleasePokemon={handleReleasePokemon}
+                {...teamPokemon}
+                battleTeamCard={battleTeamCard}
+                />
+            </Col>
+        ));
     };
 
     const renderAddPokemonButton = () => {
@@ -65,6 +63,7 @@ export default function TeamCard(team) {
         })
         .then(resp => resp.json())
         .then(data => {
+            console.log(data.team.team_pokemons)
             setTeamPokemons(data.team.team_pokemons);
         })
     }

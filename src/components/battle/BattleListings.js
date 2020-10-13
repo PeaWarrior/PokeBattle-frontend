@@ -41,7 +41,6 @@ export default function BattleListings(props) {
         })
         .then(resp => resp.json())
         .then(data => {
-            // HEREHEREHRHEHREHE
             data.message ? console.log(data) : setBattles([...data])
         })
     }, [])
