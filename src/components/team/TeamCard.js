@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Badge, Button } from 'react-bootstrap';
 import PokemonTeamCard from './PokemonTeamCard';
 import { useHistory } from "react-router-dom";
@@ -10,6 +10,10 @@ export default function TeamCard(team) {
     const [teamPokemons, setTeamPokemons] = useState(team_pokemons);
     
     const history = useHistory();
+
+    useEffect(() => {
+        setTeamPokemons(team_pokemons)
+    }, [team_pokemons])
 
     const getWinRate = () => {
         if (matches) {
@@ -33,7 +37,7 @@ export default function TeamCard(team) {
 
     const renderAddPokemonButton = () => {
         if (teamPokemons.length < 3) {
-            return <Button onClick={handleClickAddPokemonToTeam}>Add Pokemon</Button>
+            return <Button onClick={handleClickAddPokemonToTeam} variant="outline-primary" className="mr-2">Add Pokémon</Button>
         };
     };
 
@@ -76,21 +80,21 @@ export default function TeamCard(team) {
             </Row>
             <hr/>
             <Row>
-                <Col xs={9}>
+                <Col xs={8}>
                 <Badge>Total Matches: {matches}</Badge>
                 <Badge>Winrate: {getWinRate()}</Badge>
                 <br/>
                 <Badge>Wins: {wins}</Badge>
                 <Badge>Losses: {losses}</Badge>
                 </Col>
-                <Col xs={3} className="d-flex flex-row-reverse justify-content-between">
+                <Col xs={4} className="d-flex flex-row-reverse">
                     {battleTeamCard ? 
                         null
                         :
                         <>
                         <Button
                             onClick={handleClickDeleteTeam}
-                            variant="danger">
+                            variant="outline-danger">
                             Delete Team
                         </Button>
                         {renderAddPokemonButton()}
@@ -103,7 +107,7 @@ export default function TeamCard(team) {
                 <Col>
                 <Row>
 
-                    {teamPokemons.length > 0 ? renderTeamPokemons() : <p className="pl-5">There are no pokemon in this team.</p>}
+                    {teamPokemons.length > 0 ? renderTeamPokemons() : <p className="pl-5">There are no pokémon in this team.</p>}
                 </Row>
                 </Col>
             </Row>

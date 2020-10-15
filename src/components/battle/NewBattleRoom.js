@@ -21,7 +21,6 @@ export default function NewBattleRoom(props) {
         setRoomName(event.target.value);
     }
 
-    console.log(props)
     useEffect(()=> {
         fetch(`${URL}teams`, {
             method: 'GET',
@@ -94,6 +93,7 @@ export default function NewBattleRoom(props) {
     }
 
     const handleChangeSelectedTeam = (event) => {
+        console.log(event.target.value)
         setSelectedTeam(event.target.value);
     }
 

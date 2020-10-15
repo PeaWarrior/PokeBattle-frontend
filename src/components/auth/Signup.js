@@ -100,7 +100,7 @@ export default function Signup(props) {
                         }
 
                         <div className="d-flex justify-content-center">
-                            <Button className="auth-btn" type="submit" variant="outline-info">Sign Up</Button>
+                            <Button className="auth-btn" type="submit" variant="outline-primary">Sign Up</Button>
                             <br/>
                         </div>
                         <br/>

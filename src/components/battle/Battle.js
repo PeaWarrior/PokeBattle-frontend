@@ -175,6 +175,7 @@ export default function Battle(props) {
     const attackProcedure = (data) => {
         const redUser = data.users[0];
         const redActive = data.red_active;
+        const blueUser = data.users[1];
         const blueActive = data.blue_active;
         const currentRedPokemon = data.red_team.pokemons[redActive];
         const currentBluePokemon = data.blue_team.pokemons[blueActive];
@@ -238,7 +239,7 @@ export default function Battle(props) {
                         moves: currentBluePokemon.moves,
                         index: blueActive
                     }))
-                    setMessage(prevState => (`Go ${currentBluePokemon.name}!`));
+                    setMessage(prevState => (`${blueUser.username} sent out ${currentBluePokemon.name}!`));
                 }, 7000)
             }
         } else {
@@ -299,7 +300,7 @@ export default function Battle(props) {
                         moves: currentRedPokemon.moves,
                         index: redActive
                     }))
-                    setMessage(prevState => (`Go ${currentRedPokemon.name}!`));
+                    setMessage(prevState => (`${redUser.username} sent out ${currentRedPokemon.name}!`));
                 }, 7000)
             }
         }
@@ -325,13 +326,14 @@ export default function Battle(props) {
         const blueUser = data.users[1];
         const currentRedPokemon = data.red_team.pokemons[redActive];
         const currentBluePokemon = data.blue_team.pokemons[blueActive];
+        console.log(currentRedPokemon)
 
         if (currentUserId == redUser.id) {
             setTimeout(() => {
                 setMessage(`${blueUser.username} sent out ${currentBluePokemon.name}!`)
                 setRivalActive({
                     nickname: currentBluePokemon.name,
-                    sprite: currentBluePokemon.sprites.front,
+                    sprite: currentBluePokemon.shiny ? currentBluePokemon.sprites.front_shiny : currentBluePokemon.sprites.front,
                     hp: currentBluePokemon.stats.hp,
                     maxhp: currentBluePokemon.stats.hp,
                     moves: currentBluePokemon.moves,
@@ -342,7 +344,7 @@ export default function Battle(props) {
                 setMessage(`${redUser.username} sent out ${currentRedPokemon.name}!`)
                 setUserActive({
                     nickname: currentRedPokemon.name,
-                    sprite: currentRedPokemon.sprites.back,
+                    sprite: currentRedPokemon.shiny ? currentRedPokemon.sprites.back_shiny : currentRedPokemon.sprites.back,
                     hp: currentRedPokemon.stats.hp,
                     maxhp: currentRedPokemon.stats.hp,
                     moves: currentRedPokemon.moves,
@@ -356,7 +358,7 @@ export default function Battle(props) {
                 setMessage(`${redUser.username} sent out ${currentRedPokemon.name}!`)
                 setRivalActive({
                     nickname: currentRedPokemon.name,
-                    sprite: currentRedPokemon.sprites.front,
+                    sprite: currentRedPokemon.shiny ? currentRedPokemon.sprites.front_shiny : currentRedPokemon.sprites.front,
                     hp: currentRedPokemon.stats.hp,
                     maxhp: currentRedPokemon.stats.hp,
                     moves: currentRedPokemon.moves,
@@ -367,7 +369,7 @@ export default function Battle(props) {
                 setMessage(`${blueUser.username} sent out ${currentBluePokemon.name}!`)
                 setUserActive({
                     nickname: currentBluePokemon.name,
-                    sprite: currentBluePokemon.sprites.back,
+                    sprite: currentBluePokemon.shiny ? currentBluePokemon.sprites.back_shiny : currentBluePokemon.sprites.back,
                     hp: currentBluePokemon.stats.hp,
                     maxhp: currentBluePokemon.stats.hp,
                     moves: currentBluePokemon.moves,

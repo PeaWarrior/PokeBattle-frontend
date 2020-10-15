@@ -23,7 +23,7 @@ export default function NewTeamForm(prop) {
     return (
         <>
         <Button variant="primary" onClick={handleShow}>
-            Create new team
+            New team
         </Button>
 
         <Modal
@@ -31,7 +31,7 @@ export default function NewTeamForm(prop) {
             onHide={handleClose}
         >
             <Modal.Header closeButton>
-            <Modal.Title>Create new team</Modal.Title>
+            <Modal.Title>New team</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>

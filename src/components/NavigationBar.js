@@ -15,12 +15,12 @@ export default function NavigationBar (props) {
                     <NavLink className="ml-5" to="/teams">My Teams</NavLink>
                     <NavLink className="ml-5" to="/playground">Playground</NavLink>
                 </Nav>
-                <NavLink className="btn btn-primary mr-4" onClick={props.handleLogout} to="/" >Log Out</NavLink>
+                <NavLink className="btn btn-outline-primary mr-4" onClick={props.handleLogout} to="/" >Log Out</NavLink>
                 </>
             :
                 <Nav>
-                    <NavLink to="/login"><Button>Login</Button></NavLink>
-                    <NavLink to="/signup"><Button>Signup</Button></NavLink>
+                    <NavLink className="mr-3" to="/login"><Button variant="outline-primary">Login</Button></NavLink>
+                    <NavLink className="mr-5" to="/signup"><Button variant="outline-primary">Signup</Button></NavLink>
                 </Nav>
             }
             

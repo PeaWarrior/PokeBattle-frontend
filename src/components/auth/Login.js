@@ -70,7 +70,7 @@ export default function Login(props) {
                         <input type="password" name="password" placeholder="Password" autoComplete="off" onChange={handleChange} value={password} />
                         <br/>
                         <div className="d-flex justify-content-center mb-5">
-                            <Button className="auth-btn" variant="outline-info" type="submit">Log In</Button>
+                            <Button className="auth-btn" variant="outline-primary" type="submit">Log In</Button>
 
                         </div>
                         <span className="error">{error}</span>

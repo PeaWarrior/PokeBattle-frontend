@@ -3,6 +3,8 @@
 
 Pokémon team builder web application with real-time competitive battling against other users.
 
+Watch the **[Demo](https://www.youtube.com/watch?v=YokySyaxgpc&list=PL-EVZgxQ8q1Esnhf0kjeg4BFXfy0J0zJJ)** here.
+
 ## Table of Contents
 * [Getting Started](#getting-started)
 * [Features](#features)
@@ -37,7 +39,24 @@ Pokémon team builder web application with real-time competitive battling agains
 
 ## Features
 
-[EDIT THIS]
+### Create your team(s)
+
+![Add pokémon](https://media2.giphy.com/media/y5vY64iqrwIzpbeGiB/giphy.gif)
+* Add pokémon to your team
+* Moves are randomized by what that pokémon is able to learn
+
+![Release pokémon](https://media4.giphy.com/media/EDQWKsHlF6RJtRORMX/giphy.gif)
+* Release pokémon from your team
+
+### Battle Rooms
+![Create Room](https://media4.giphy.com/media/BDifr22j0S1TVL2cEz/giphy.gif)
+![Join Room](https://media1.giphy.com/media/NldHhaEI6UIgs7ioOa/giphy.gif)
+* Create a Battle Room
+* Join another user's open Battle Room
+
+### Battle
+![Battle](https://media2.giphy.com/media/I8DFmX29HFjnt6U7AH/giphy.gif)
+* Battle the other user!
 
 ## Tech Stack
 * React.js
