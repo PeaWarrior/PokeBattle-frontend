@@ -50,8 +50,9 @@ Watch the **[Demo](https://www.youtube.com/watch?v=YokySyaxgpc&list=PL-EVZgxQ8q1
 
 ### Battle Rooms
 ![Create Room](https://media4.giphy.com/media/BDifr22j0S1TVL2cEz/giphy.gif)
-![Join Room](https://media1.giphy.com/media/NldHhaEI6UIgs7ioOa/giphy.gif)
 * Create a Battle Room
+
+![Join Room](https://media1.giphy.com/media/NldHhaEI6UIgs7ioOa/giphy.gif)
 * Join another user's open Battle Room
 
 ### Battle
